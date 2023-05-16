@@ -9,18 +9,20 @@ $password = $data["password"];
 
 $result = array();
 
-$get_user = 
-    "SELECT * FROM tUtente 
-    WHERE email={$email} AND password={$password}";
-$get_user_res = mysqli_query($get_user);
+$get_hashed_password = "SELECT * FROM tUtente WHERE email = '{$email}'";
+$get_hashed_password_res = mysqli_query($db, $get_hashed_password);
 
-if (mysqli_num_rows($get_user_res) == 0) {
-    $result["user"] = "not_found";
+if ($row = mysqli_fetch_assoc($get_hashed_password_res)) {
+    $hashed_password = $row["password"];
+
+    if (password_verify($password, $hashed_password)) {
+        $result["user"] = "found";
+        $result["name"] = $row["nome"];
+    } else {
+        $result["user"] = "not_found";
+    }
 } else {
-    $id = mysqli_fetch_array($get_user_res)["id"];
-    $result["user"] = "found";
-    $result["id"] = $id;
-    $_SESSION["userId"] = $id;
+    $result["user"] = "not_found";
 }
 
 echo json_encode($result);

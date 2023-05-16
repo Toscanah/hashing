@@ -2,15 +2,24 @@
 <html lang="en">
 
 <head>
-    <title>Document</title>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
 </head>
 
 <body>
-    <form method="POST" id="login-form">
+    <form method="POST" class="login-container" id="login-form">
+        <label for="email">Email</label>
         <input required type="email" id="email">
+        <label for="password">Password</label>
         <input required type="password" id="password">
-        <button type="submit">accedi</button>
+        <button type="submit">ACCEDI</button>
     </form>
 </body>
+
+<button class="home-btn" onclick="window.location.href = '../../index.html'">
+    BACK
+</button>
+
+<script type="text/javascript" src="../../assets/javascript/login.js"></script>
 
 </html>
